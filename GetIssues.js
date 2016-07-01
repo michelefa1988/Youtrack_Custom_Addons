@@ -6,7 +6,7 @@ YouTrackBaseURL = 'https://zettabox.myjetbrains.com/youtrack/rest/issue?filter='
 YouTrackFilter = ("#{"+ SprintNumber + "} Type:{User Story}Type:{Bug}");
 var YouTrackURL = YouTrackBaseURL + encodeURIComponent(YouTrackFilter) + '&max=100';
 
-function getIssues(cb) {
+exports.getIssues = function getIssues(cb) {
     login.logon(function(err, setcookie) {
 
         var options = {
@@ -21,14 +21,19 @@ function getIssues(cb) {
                 var parseString = require('xml2js').parseString;
 
                 parseString(Issues, function(err, result) {
+
                     //console.log(result.issueCompacts.issue);
                     //console.log(JSON.stringify(result.issueCompacts.issue[1].field[1].value[0], null, 4));
                     //console.log(result);
 
+                    // if(err){
+                    //   return cb(err);
+                    // }
+
                     result.issueCompacts.issue.forEach(function(item) {
                         item.field.forEach(function(field) {
                             if (field.$.name == 'Story Points') {
-                                console.log(item.$.id, ',', field.value[0]);
+                                 console.log(item.$.id, ',', field.value[0]);
                             }
                         });
                         item.field.forEach(function(field) {
@@ -37,10 +42,11 @@ function getIssues(cb) {
                             }
                         });
                     });
+                    cb(null,result);
                 });
             });
         }
     });
-}
+};
 
-exports.Issues = getIssues;
+//exports.getIssues = getIssues;
