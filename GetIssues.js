@@ -1,6 +1,6 @@
 var login = require('./Login.js');
 var request = require('request');
-var SprintNumber = '#24';
+var SprintNumber = '#23';
 
 YouTrackBaseURL = 'https://zettabox.myjetbrains.com/youtrack/rest/issue?filter=';
 YouTrackFilter = ("#{"+ SprintNumber + "} Type:{User Story}Type:{Bug}");
