@@ -1,10 +1,13 @@
 var login = require('./Login.js');
 var request = require('request');
-var SprintNumber = '#23';
+var csvWriter = require('csv-write-stream');
+fs = require('fs');
+var SprintNumber = '#26';
+
 
 YouTrackBaseURL = 'https://zettabox.myjetbrains.com/youtrack/rest/issue?filter=';
-YouTrackFilter = ("#{"+ SprintNumber + "} Type:{User Story}Type:{Bug}");
-var YouTrackURL = YouTrackBaseURL + encodeURIComponent(YouTrackFilter) + '&max=100';
+YouTrackFilter = ("#{" + SprintNumber + "} Type:{Technical}Type:{User Story}Type:{Bug}Project:-{Zettabox.Qa}");
+var YouTrackURL = YouTrackBaseURL + encodeURIComponent(YouTrackFilter) + '&max=1';
 
 exports.getIssues = function getIssues(cb) {
     login.logon(function(err, setcookie) {
@@ -21,6 +24,9 @@ exports.getIssues = function getIssues(cb) {
                 var parseString = require('xml2js').parseString;
 
                 parseString(Issues, function(err, result) {
+                  var writer = csvWriter({ headers: ["Name","Story points", "Assignee","State", "Type"]});
+                  writer.pipe(fs.createWriteStream('out.csv'));
+                  var row = [];
 
                     //console.log(result.issueCompacts.issue);
                     //console.log(JSON.stringify(result.issueCompacts.issue[1].field[1].value[0], null, 4));
@@ -29,20 +35,39 @@ exports.getIssues = function getIssues(cb) {
                     // if(err){
                     //   return cb(err);
                     // }
-
                     result.issueCompacts.issue.forEach(function(item) {
                         item.field.forEach(function(field) {
                             if (field.$.name == 'Story Points') {
-                                 console.log(item.$.id, ',', field.value[0]);
+                                console.log(item.$.id);
+                                row[0] = item.$.id;
+                                row[1] = field.value[0];
+                                console.log('\t',field.value[0]);
+                            }
+                        });
+                        item.field.forEach(function(field) {
+                            if (field.$.name == 'Assignee') {
+                                row[2] = field.value[0].$.fullName;
+                                console.log('\t',  field.value[0].$.fullName);
+                            }
+                            if (field.$.name == 'State') {
+                                row[3] = field.value[0];
+                                console.log('\t',  field.value[0]);
+                            }
+                            if (field.$.name == 'Type') {
+                                row[4] = field.value[0];
+                                console.log('\t', field.value[0]);
                             }
                         });
                         item.field.forEach(function(field) {
                             if (field.$.name == 'summary') {
-                                console.log('       ', field.value[0]);
+                                row[4] = field.value[0];
+                                console.log('\t', field.value[0]);
                             }
                         });
+                        writer.write([row[0],row[1], row[2],row[3],row[4] ]);
                     });
-                    cb(null,result);
+
+                    cb(null, result);
                 });
             });
         }
