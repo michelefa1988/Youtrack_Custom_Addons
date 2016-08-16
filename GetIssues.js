@@ -2,12 +2,14 @@ var login = require('./Login.js');
 var request = require('request');
 var csvWriter = require('csv-write-stream');
 fs = require('fs');
-var SprintNumber = '#26';
+var SprintNumber = '#27';
 
 
 YouTrackBaseURL = 'https://zettabox.myjetbrains.com/youtrack/rest/issue?filter=';
-YouTrackFilter = ("#{" + SprintNumber + "} Type:{Technical}Type:{User Story}Type:{Bug}Project:-{Zettabox.Qa}");
-var YouTrackURL = YouTrackBaseURL + encodeURIComponent(YouTrackFilter) + '&max=1';
+YouTrackFilter = ("#{" + SprintNumber + "} Type:{Technical}Type:{User Story}Type:{Bug}Project:-{Zettabox.Qa}Project:-{ZettaBox.OSX.Client}");
+var YouTrackURL = YouTrackBaseURL + encodeURIComponent(YouTrackFilter) + '&max=100';
+
+ticketsArr = [];
 
 exports.getIssues = function getIssues(cb) {
     login.logon(function(err, setcookie) {
@@ -24,50 +26,56 @@ exports.getIssues = function getIssues(cb) {
                 var parseString = require('xml2js').parseString;
 
                 parseString(Issues, function(err, result) {
-                  var writer = csvWriter({ headers: ["Name","Story points", "Assignee","State", "Type"]});
-                  writer.pipe(fs.createWriteStream('out.csv'));
-                  var row = [];
+                    var writer = csvWriter({
+                        headers: ["Name", "Story points", "Assignee", "State", "Type", "Description"]
+                    });
+                    writer.pipe(fs.createWriteStream('out.csv'));
 
-                    //console.log(result.issueCompacts.issue);
-                    //console.log(JSON.stringify(result.issueCompacts.issue[1].field[1].value[0], null, 4));
-                    //console.log(result);
+                    var SumStoryPoints = 0;
+                    var NoOfStories = 0;
 
-                    // if(err){
-                    //   return cb(err);
-                    // }
                     result.issueCompacts.issue.forEach(function(item) {
+                        var ticket = [];
+                        ticket[2] = 'Unassigned';
                         item.field.forEach(function(field) {
                             if (field.$.name == 'Story Points') {
-                                console.log(item.$.id);
-                                row[0] = item.$.id;
-                                row[1] = field.value[0];
-                                console.log('\t',field.value[0]);
+                                //console.log(item.$.id);
+                                ticket[0] = item.$.id;
+                                ticket[1] = field.value[0];
+                                //console.log('\t', field.value[0]);
+                                SumStoryPoints = SumStoryPoints + parseInt(field.value[0]);
+                                NoOfStories++;
                             }
                         });
                         item.field.forEach(function(field) {
-                            if (field.$.name == 'Assignee') {
-                                row[2] = field.value[0].$.fullName;
-                                console.log('\t',  field.value[0].$.fullName);
-                            }
                             if (field.$.name == 'State') {
-                                row[3] = field.value[0];
-                                console.log('\t',  field.value[0]);
+                                ticket[3] = field.value[0];
+                                //console.log('\t', field.value[0]);
                             }
                             if (field.$.name == 'Type') {
-                                row[4] = field.value[0];
-                                console.log('\t', field.value[0]);
+                                ticket[4] = field.value[0];
+                                //console.log('\t', field.value[0]);
                             }
+                        });
+                        item.field.forEach(function(field) {
+                          if (field.$.name == 'Assignee') {
+                              ticket[2] = field.value[0].$.fullName;
+                              //console.log('\t', field.value[0].$.fullName);
+                          }
+
                         });
                         item.field.forEach(function(field) {
                             if (field.$.name == 'summary') {
-                                row[4] = field.value[0];
-                                console.log('\t', field.value[0]);
+                                ticket[5] = field.value[0];
+                                //console.log('\t', field.value[0]);
                             }
                         });
-                        writer.write([row[0],row[1], row[2],row[3],row[4] ]);
+                        writer.write(ticket);
+                        ticketsArr.push(ticket);
                     });
-
-                    cb(null, result);
+                    console.log("Story Points SUM: " ,SumStoryPoints);
+                    console.log("Number of Stories: " ,NoOfStories);
+                    cb(null, ticketsArr);
                 });
             });
         }
