@@ -2,12 +2,14 @@ var login = require('./Login.js');
 var request = require('request');
 var csvWriter = require('csv-write-stream');
 fs = require('fs');
-var SprintNumber = '#27';
+var SprintNumber = '#28';
 
 
 YouTrackBaseURL = 'https://zettabox.myjetbrains.com/youtrack/rest/issue?filter=';
 YouTrackFilter = ("#{" + SprintNumber + "} Type:{Technical}Type:{User Story}Type:{Bug}Project:-{Zettabox.Qa}Project:-{ZettaBox.OSX.Client}");
-var YouTrackURL = YouTrackBaseURL + encodeURIComponent(YouTrackFilter) + '&max=100';
+//YouTrackFilter = ("#ZettaBox_Web_NextGen-531 #ZettaBox_Web_NextGen-532");
+YouTrackURL = YouTrackBaseURL + encodeURIComponent(YouTrackFilter) + '&max=777';
+
 
 ticketsArr = [];
 
@@ -27,7 +29,7 @@ exports.getIssues = function getIssues(cb) {
 
                 parseString(Issues, function(err, result) {
                     var writer = csvWriter({
-                        headers: ["Name", "Story points", "Assignee", "State", "Type", "Description"]
+                        headers: ["Name", "Story points", "Assignee", "State", "Type", "Description", "url"]
                     });
                     writer.pipe(fs.createWriteStream('out.csv'));
 

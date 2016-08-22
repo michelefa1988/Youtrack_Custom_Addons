@@ -2,7 +2,7 @@ var request = require('request');
 
 var login = require('./Login.js');
 var issues = require('./GetIssues.js');
-var ExportToCSV = require ('./ExportToPDF');
+var ExportToPDF = require ('./ExportToPDF');
 
 login.logon(function(err, setcookie) {
     if (!err) {
@@ -17,7 +17,7 @@ login.logon(function(err, setcookie) {
             console.log("********CALLBACK*********************");
 
             //console.log(ticketsArr);
-            console.log(ExportToCSV.writetoPDF());
+            ExportToPDF.writetoPDF();
 
         });
     }

@@ -21,6 +21,16 @@ function polishString(str) {
     });
     return newString;
 }
+
+
+function createQR(url,filename) {
+  console.log(filename);
+  var qr = require('qr-image');
+
+  var qr_svg = qr.image(url, { type: 'png' });
+  fs.writeFileSync('temp/' + filename + '.png', qr.imageSync(url, { type: 'png' }));
+}
+
 function createPDFDocument() {
     //Create a document
     doc = new PDFDocument();
@@ -32,14 +42,16 @@ function createPDFDocument() {
 
     stream.on('error', function(err) {
         console.log('error writing to PDF ');
-        return (err);
+    });
+
+    stream.on('end', function() {
+        cb();
     });
 }
 
 module.exports = {
-    writetoPDF: function() {
+    writetoPDF: function(cb) {
             createPDFDocument();
-
             //console.log (ticketsArr);
             var y = 0;
             var j = 0;
@@ -47,6 +59,7 @@ module.exports = {
 
             var tickets = ticketsArr.slice();
             while (tickets.length) {
+
 
                 //map used for shortening project names
                 var ProjectAliases = {
@@ -61,6 +74,7 @@ module.exports = {
                 var page = tickets.splice(0, 6);
                 var ticketNo = 0;
                 page.forEach(function(ticket) {
+
 
                     isLeft = ticketNo % 2;
 
@@ -78,15 +92,14 @@ module.exports = {
 
                     //colour the ticket according to type of ticet
                     if (page[ticketNo][4] == "Bug") {
-                        doc.fillAndStroke("pink", "#200");
+                        doc.fillAndStroke("#ffe6e6", "#200");
                     }
                     if (page[ticketNo][4] == "Technical") {
-                        doc.fillAndStroke("orange", "#200");
+                        doc.fillAndStroke("#fff0b3", "#200");
                     }
                     if (page[ticketNo][4] == "User Story") {
-                        doc.fillAndStroke("#32CD32", "#200");
-                    }
-                    else {
+                        doc.fillAndStroke("#ccffcc", "#200");
+                    } else {
                         doc.fillAndStroke("white", "#200");
                     }
 
@@ -118,17 +131,26 @@ module.exports = {
                         .fillColor('black')
                         .text(FullName[0], x + 10, (y * 260) + 10);
 
+                    //write QR image
+                    createQR('https://zettabox.myjetbrains.com/youtrack/issue/'+ page[ticketNo][0], page[ticketNo][0]);
+                    doc.image('temp/' + page[ticketNo][0] + '.PNG', x + 100, (y * 260) + 198 , {width:50});
+
+
                     ticketNo++;
                     if (isLeft !== 0) {
                         y++;
                     }
                 });
                 y = 0;
-                doc.addPage();
+                if (tickets.length ) {
+                  doc.addPage();
+                }
             }
+
+
+
             doc.save();
             //Finalize PDF file
             doc.end();
-            return "PDF created successfully";
         } //end test function
 };
