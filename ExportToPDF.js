@@ -104,7 +104,7 @@ module.exports = {
 
                     //display Ticket number
                     doc.font('Times_New_Roman_Bold.ttf')
-                        .fontSize(45)
+                        .fontSize(50)
                         .fillColor('black')
                         .text(page[ticketNo][0].replace(re, function(matched) {
                             return ProjectAliases[matched];
