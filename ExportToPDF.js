@@ -33,7 +33,7 @@ function createQR(url,filename) {
 
 function createPDFDocument() {
     //Create a document
-    doc = new PDFDocument();
+    doc = new PDFDocument({margin: 0});
 
     // Pipe its output somewhere, like to a file or HTTP response
     // See below for browser usage
@@ -55,7 +55,6 @@ module.exports = {
             //console.log (ticketsArr);
             var y = 0;
             var j = 0;
-
 
             var tickets = ticketsArr.slice();
             while (tickets.length) {
@@ -82,7 +81,7 @@ module.exports = {
                         //is left
                         x = 0;
                     } else {
-                        x = 300;
+                        x = 360;
                     }
 
                     doc.rect(x, y * 260, 250, 250)
@@ -105,7 +104,7 @@ module.exports = {
 
                     //display Ticket number
                     doc.font('Times_New_Roman_Bold.ttf')
-                        .fontSize(50)
+                        .fontSize(45)
                         .fillColor('black')
                         .text(page[ticketNo][0].replace(re, function(matched) {
                             return ProjectAliases[matched];
@@ -143,7 +142,8 @@ module.exports = {
                 });
                 y = 0;
                 if (tickets.length ) {
-                  doc.addPage();
+                  doc.addPage(
+                    {margin: 0})
                 }
             }
 
