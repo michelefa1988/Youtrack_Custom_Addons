@@ -12,8 +12,8 @@ var SprintNumber = '#28';
 //standard priont sprint
 YouTrackBaseURL = 'https://zettabox.myjetbrains.com/youtrack/rest/issue?filter=';
 YouTrackFilter = ("#{" + SprintNumber + "} Type:{Technical}Type:{User Story}Type:{Bug}Project:-{Zettabox.Qa}Project:-{ZettaBox.OSX.Client}");
-//YouTrackFilter = ("#ZettaBox_Web_NextGen-229 #ZettaBox_Web_NextGen-357 #ZettaBox_Web_NextGen-413 #ZettaBox_Web_NextGen-524 #ZettaBox_Web_NextGen-532 #ZettaBox_Web_NextGen-558");
-YouTrackURL = YouTrackBaseURL + encodeURIComponent(YouTrackFilter) + '&max=777';
+//YouTrackFilter = ("#ZettaBox_Web_NextGen-611 #ZettaBox_Web_NextGen-612 #ZettaBox_Web_NextGen-609  ZettaBox_Web_NextGen-610");
+YouTrackURL = YouTrackBaseURL + encodeURIComponent(YouTrackFilter) + '&max=3000';
 
 
 ticketsArr = [];

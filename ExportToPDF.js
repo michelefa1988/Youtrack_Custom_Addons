@@ -21,7 +21,17 @@ function polishString(str) {
     });
     return newString;
 }
+function createDirectory(dir){
+  if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+  }
+}
 
+function RemoveDirectory(path){
+  var fileStream = require('fs-extra');
+  fileStream.remove(path);
+
+}
 
 function createQR(url,filename) {
   console.log(filename);
@@ -57,6 +67,7 @@ module.exports = {
             var j = 0;
 
             var tickets = ticketsArr.slice();
+            createDirectory('./temp');
             while (tickets.length) {
 
 
@@ -152,5 +163,7 @@ module.exports = {
             doc.save();
             //Finalize PDF file
             doc.end();
+            RemoveDirectory('./temp');
+
         } //end test function
 };

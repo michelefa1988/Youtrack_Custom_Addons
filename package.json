@@ -1,16 +1,17 @@
 {
-  "name": "packages",
+  "name": "youtrack_Test",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "csv-write-stream": "^2.0.0",
-    "pdfkit": "^0.7.2",
+    "fs-extra": "^0.30.0",
     "bluebird": "^3.4.0",
-    "qr-image": "^3.1.0",
-    "request": "^2.72.0",
+    "csv-write-stream": "^2.0.0",
     "fonts": "^0.0.2",
     "node-rest-client": "^1.8.0",
+    "pdfkit": "^0.7.2",
+    "qr-image": "^3.1.0",
+    "request": "^2.72.0",
     "xml2js": "^0.4.16"
   },
   "devDependencies": {},
@@ -21,6 +22,7 @@
     "type": "git",
     "url": "git+https://github.com/zetta-michele/youtrack_test.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
