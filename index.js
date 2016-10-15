@@ -46,15 +46,8 @@ if (!HelpNeeded()) {
                 //if changes parameter is present
                 if (process.argv.indexOf("-changes") != -1) {
                      CompareChanges.processChanges(function(cb) {
-                       console.log('***AAAAAAA');
-                       console.log('cb is ' + cb);
                        ArrayToExport = cb;
-
-                       //console.log('tickets array is ');
-                       //console.log(ticketsArr);
-
-                       ExportToPDF.writetoPDF(function(cb){
-                       })
+                       ExportToPDF.writetoPDF();
                      });
                 }
                 else {

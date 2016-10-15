@@ -62,7 +62,6 @@ function createPDFDocument() {
 module.exports = {
     writetoPDF: function(cb) {
             createPDFDocument();
-            console.log (ArrayToExport);
             var y = 0;
             var j = 0;
 

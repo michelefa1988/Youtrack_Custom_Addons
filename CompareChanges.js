@@ -15,10 +15,6 @@ module.exports = {
             if (ticketsCollection === null) {
                 //start new database
                 var ticketsCollection = db.addCollection(index.sprint);
-                // ticketsCollection.insert([{
-                //     sprint: index.Sprint,
-                //     Ticket: 'ahoj'
-                // }]);
                 db.saveDatabase();
 
             }
@@ -26,7 +22,7 @@ module.exports = {
             var tickets = ticketsArr.slice();
             for (var i = 0; i < tickets.length; i++) {
                 //traverse through stories just downloaded
-                //console.log(tickets[i][0], ' ' , index.Sprint);
+
                 if (ticketsCollection.find({
                         '$and': [{
                             'Ticket': tickets[i][0]
@@ -43,12 +39,7 @@ module.exports = {
 
                 }
             } //end for
-            //console.log(changesArr);
             db.saveDatabase();
-            //console.log('First is ' + ticketsCollection.get(1).Ticket);
-            //console.log('*****************************88');
-            //console.log(ticketsCollection.find( {'sprint':'31'} ));
-
             cb(changesArr);
 
         });
