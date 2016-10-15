@@ -62,11 +62,11 @@ function createPDFDocument() {
 module.exports = {
     writetoPDF: function(cb) {
             createPDFDocument();
-            //console.log (ticketsArr);
+            console.log (ArrayToExport);
             var y = 0;
             var j = 0;
 
-            var tickets = ticketsArr.slice();
+            var tickets = ArrayToExport.slice();
             createDirectory('./temp');
             while (tickets.length) {
 
@@ -165,5 +165,5 @@ module.exports = {
             doc.end();
             RemoveDirectory('./temp');
 
-        } //end test function
+        }
 };
