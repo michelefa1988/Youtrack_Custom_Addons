@@ -1,7 +1,6 @@
 {
-  "name": "youtrack_Test",
+  "name": "youtrack_test",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "fs-extra": "^0.30.0",
@@ -12,7 +11,8 @@
     "pdfkit": "^0.7.2",
     "qr-image": "^3.1.0",
     "request": "^2.72.0",
-    "xml2js": "^0.4.16"
+    "xml2js": "^0.4.16",
+    "lokijs": "^1.4.1"
   },
   "devDependencies": {},
   "scripts": {
@@ -28,5 +28,6 @@
   "bugs": {
     "url": "https://github.com/zetta-michele/youtrack_test/issues"
   },
-  "homepage": "https://github.com/zetta-michele/youtrack_test#readme"
+  "homepage": "https://github.com/zetta-michele/youtrack_test#readme",
+  "description": ""
 }
