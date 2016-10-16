@@ -1,9 +1,9 @@
 var request = require('request');
-
 var login = require('./Login.js');
 var issues = require('./GetIssues.js');
 var ExportToPDF = require('./ExportToPDF');
 var CompareChanges = require('./CompareChanges');
+
 
 ArrayToExport = [];
 
@@ -11,6 +11,21 @@ function getSprint() {
     if (process.argv.indexOf("-sprint") != -1) { //does our flag exist?
         return (process.argv[process.argv.indexOf("-sprint") + 1]);
     }
+}
+
+function LaunchPrintScript(){
+  var spawn = require("child_process").spawn,child;
+  child = spawn("powershell.exe",["./print.ps1"]);
+  child.stdout.on("data",function(data){
+      console.log("Powershell Data: " + data);
+  });
+  child.stderr.on("data",function(data){
+      console.log("Powershell Errors: " + data);
+  });
+  child.on("exit",function(){
+      console.log("Powershell Script finished");
+  });
+  child.stdin.end(); //end input
 }
 
 function HelpNeeded() {
@@ -22,6 +37,7 @@ function HelpNeeded() {
         console.log("-pass --> Enter a valid youtrack password");
         console.log("-sprint --> Enter a valid youtrack sprint number eg 31");
         console.log("-changes --> Record only Changes");
+        console.log("-print --> Launches powershell script which prints pdf");
         console.log("------------------------------------------------------------------------------------------");
         return true;
     }
@@ -53,6 +69,10 @@ if (!HelpNeeded()) {
                 else {
                   ArrayToExport = ticketsArr;
                   ExportToPDF.writetoPDF();
+                }
+                if (process.argv.indexOf("-print") != -1) {
+                  LaunchPrintScript();
+
                 }
             });
         }
