@@ -2,10 +2,6 @@ var login = require('./Login.js');
 var request = require('request');
 var csvWriter = require('csv-write-stream');
 fs = require('fs');
-<<<<<<< HEAD
-var SprintNumber = '#31';
-=======
->>>>>>> bb52ce50fbd444eaffb6fcc930e956515893ed4b
 
 
 function getSprint() {
@@ -22,13 +18,9 @@ var SprintNumber = '#' + getSprint();
 
 //standard priont sprint
 YouTrackBaseURL = 'https://zettabox.myjetbrains.com/youtrack/rest/issue?filter=';
-<<<<<<< HEAD
-YouTrackFilter = ("#{" + SprintNumber + "} Type:{Technical}Type:{User Story}Type:{Bug}");
 //YouTrackFilter = ("#ZettaBox_Web_NextGen-730 #ZettaBox_Web_NextGen-782 #ZettaBox_Web_NextGen-784  #ZettaBox_Web_NextGen-786 #ZettaBox_Web_NextGen-596");
-=======
 YouTrackFilter = ("#{" + SprintNumber + "} Type:{Technical}Type:{User Story}Type:{Bug}Project:-{ZettaBox.OSX.Client}");
 //YouTrackFilter = ("#ZettaBox_Web_NextGen-611 #ZettaBox_Web_NextGen-612 #ZettaBox_Web_NextGen-609  ZettaBox_Web_NextGen-610");
->>>>>>> bb52ce50fbd444eaffb6fcc930e956515893ed4b
 YouTrackURL = YouTrackBaseURL + encodeURIComponent(YouTrackFilter) + '&max=3000';
 
 
