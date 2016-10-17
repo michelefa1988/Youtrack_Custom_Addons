@@ -125,7 +125,7 @@ module.exports = {
                     //display Header of ticket
                     doc.fontSize(13);
                     doc.font('Times_New_Roman_Normal.ttf');
-                    doc.text(polishString(page[ticketNo][5]));
+                    doc.text(polishString(page[ticketNo][6]));
 
                     //display story points
                     doc.font('Times_New_Roman_Normal.ttf')
