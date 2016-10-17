@@ -63,12 +63,12 @@ if (!HelpNeeded()) {
                 if (process.argv.indexOf("-changes") != -1) {
                      CompareChanges.processChanges(function(cb) {
                        ArrayToExport = cb;
-                       ExportToPDF.writetoPDF();
+                       ExportToPDF.writetoPDF(true);
                      });
                 }
                 else {
                   ArrayToExport = ticketsArr;
-                  ExportToPDF.writetoPDF();
+                  ExportToPDF.writetoPDF(false);
                 }
                 if (process.argv.indexOf("-print") != -1) {
                   LaunchPrintScript();

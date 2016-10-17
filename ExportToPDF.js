@@ -60,7 +60,7 @@ function createPDFDocument() {
 }
 
 module.exports = {
-    writetoPDF: function(cb) {
+    writetoPDF: function(AddedToSprint) {
             createPDFDocument();
             var y = 0;
             var j = 0;
@@ -144,6 +144,19 @@ module.exports = {
                     createQR('https://zettabox.myjetbrains.com/youtrack/issue/'+ page[ticketNo][0], page[ticketNo][0]);
                     doc.image('temp/' + page[ticketNo][0] + '.PNG', x + 100, (y * 260) + 198 , {width:50});
 
+                    if (AddedToSprint) {
+                      //item has been added to sprint
+                      doc.rect(x + 5, (y * 260) + 210 , 90, 20)
+                          .lineWidth(1)
+                          .fillOpacity(1000.1);
+                      doc.fillAndStroke("#FFA500", "#FFA500");
+
+                      doc.font('Times_New_Roman_Normal.ttf')
+                          .fontSize(10)
+                          .fillColor('black')
+                          .fill('black')
+                          .text("Not in Intial Scope", x + 5, (y * 260)+ 215);
+                    }
 
                     ticketNo++;
                     if (isLeft !== 0) {
