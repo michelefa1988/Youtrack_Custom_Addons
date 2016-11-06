@@ -7,12 +7,6 @@ var CompareChanges = require('./CompareChanges');
 
 ArrayToExport = [];
 
-function getSprint() {
-    if (process.argv.indexOf("-sprint") != -1) { //does our flag exist?
-        return (process.argv[process.argv.indexOf("-sprint") + 1]);
-    }
-}
-
 function LaunchPrintScript(){
   var spawn = require("child_process").spawn,child;
   child = spawn("powershell.exe",["./print.ps1"]);
@@ -78,5 +72,4 @@ if (!HelpNeeded()) {
         }
     });
 }
-exports.Sprint = getSprint();
 exports.ArrayToExport = ArrayToExport;

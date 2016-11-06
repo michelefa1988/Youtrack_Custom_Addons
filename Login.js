@@ -1,26 +1,14 @@
 var request = require('request');
-var LoginURL = 'https://zettabox.myjetbrains.com/youtrack/rest/user/login';
-
-function getEmail() {
-    if (process.argv.indexOf("-email") != -1) { //does our flag exist?
-        return (process.argv[process.argv.indexOf("-email") + 1]);
-    }
-}
-
-function getPass() {
-    if (process.argv.indexOf("-pass") != -1) { //does our flag exist?
-        return (process.argv[process.argv.indexOf("-pass") + 1]);
-    }
-}
+var config = require("./config.js");
 
 var login_form = {
-    login: getEmail(),
-    password: getPass(),
+    login: config.YouTrack_Email,
+    password: config.YouTrack_Password,
 };
 
 function Logon(cb) {
     request.post({
-        url: LoginURL,
+        url: config.YouTrack_Login_URL,
         form: login_form
     }, function(e, r, body) {
         if (r.statusCode != 200 || e !== null) {

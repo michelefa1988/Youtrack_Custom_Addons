@@ -1,4 +1,4 @@
-var index = require('./index.js');
+var config = require("./config.js");
 var loki = require('lokijs');
 var db = require('lokijs');
 
@@ -6,7 +6,6 @@ changesArr = [];
 
 module.exports = {
     processChanges: function(cb) {
-
         var FileName = 'sprints';
         var db = new loki(FileName)
         db.loadDatabase({}, function() {
@@ -14,7 +13,7 @@ module.exports = {
 
             if (ticketsCollection === null) {
                 //start new database
-                var ticketsCollection = db.addCollection(index.sprint);
+                var ticketsCollection = db.addCollection();
                 db.saveDatabase();
 
             }
@@ -27,13 +26,13 @@ module.exports = {
                         '$and': [{
                             'Ticket': tickets[i][0]
                         }, {
-                            'sprint': index.Sprint
+                            'sprint': config.sprint_number
                         }]
                     }).length <= 0) {
                     //tickets needs to be printed and added to DB
                     changesArr.push(tickets[i]);
                     ticketsCollection.insert([{
-                        sprint: index.Sprint,
+                        sprint: config.sprint_number,
                         Ticket: tickets[i][0]
                     }]);
 
