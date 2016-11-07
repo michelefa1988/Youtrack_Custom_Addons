@@ -27,5 +27,5 @@ YouTrackURL = -> YouTrack_BaseURL + encodeURIComponent(youtrack_query) + '&max=3
 exports.sprint_number = SprintNumber()
 exports.YouTrack_URL = YouTrackURL()
 exports.YouTrack_Email = YouTrackEmail()
-exports.YouTrack_Password = YouTrackPassword()
+exports.YouTrack_Password = YouTrackPassword()  
 exports.YouTrack_Login_URL = YoutrackLoginURL()
