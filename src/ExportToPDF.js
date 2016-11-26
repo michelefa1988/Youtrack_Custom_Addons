@@ -101,13 +101,13 @@ module.exports = {
 
 
                     //colour the ticket according to type of ticet
-                    if (page[ticketNo][4] == "Bug") {
+                    if (page[ticketNo][conf.printed_tickets_type] == "Bug") {
                         doc.fillAndStroke("#ffe6e6", "#200");
                     }
-                    if (page[ticketNo][4] == "Technical") {
+                    if (page[ticketNo][conf.printed_tickets_type] == "Technical") {
                         doc.fillAndStroke("#fff0b3", "#200");
                     }
-                    if (page[ticketNo][4] == "User Story") {
+                    if (page[ticketNo][conf.printed_tickets_type] == "User Story") {
                         doc.fillAndStroke("#ccffcc", "#200");
                     } else {
                         doc.fillAndStroke("white", "#200");
@@ -117,7 +117,7 @@ module.exports = {
                     doc.font('./assets/fonts/Times_New_Roman_Bold.ttf')
                         .fontSize(50)
                         .fillColor('black')
-                        .text(page[ticketNo][0].replace(re, function(matched) {
+                        .text(page[ticketNo][conf.printed_tickets_center_bold].replace(re, function(matched) {
                             return ProjectAliases[matched];
                         }), (x + 5), (y * 260) + 80);
 
@@ -125,25 +125,25 @@ module.exports = {
                     //display Header of ticket
                     doc.fontSize(13);
                     doc.font('./assets/fonts/Times_New_Roman_Normal.ttf');
-                    doc.text(polishString(page[ticketNo][6]));
+                    doc.text(polishString(page[ticketNo][conf.printed_tickets_small_text]));
 
                     //display story points
                     doc.font('./assets/fonts/Times_New_Roman_Normal.ttf')
                         .fontSize(30)
                         .fillColor('black')
-                        .text(page[ticketNo][1], x + 200, (y * 260) + 10);
+                        .text(page[ticketNo][conf.printed_tickets_topRight], x + 200, (y * 260) + 10);
 
 
                     //display Asignee first name
-                    var FullName = page[ticketNo][2].split(" ");
+                    var FullName = page[ticketNo][conf.printed_tickets_topLeft].split(" ");
                     doc.font('./assets/fonts/Times_New_Roman_Normal.ttf')
                         .fontSize(20)
                         .fillColor('black')
                         .text(FullName[0], x + 10, (y * 260) + 10);
 
                     //write QR image
-                    createQR(conf.YouTrack_Search_URL + page[ticketNo][0], page[ticketNo][0]);
-                    doc.image('temp/' + page[ticketNo][0] + '.PNG', x + 100, (y * 260) + 198 , {width:50});
+                    createQR(conf.YouTrack_Search_URL + page[ticketNo][conf.ticketID], page[ticketNo][conf.ticketID]);
+                    doc.image('temp/' + page[ticketNo][conf.ticketID] + '.PNG', x + 100, (y * 260) + 198 , {width:50});
 
                     if (AddedToSprint) {
                       //item has been added to sprint
@@ -152,7 +152,7 @@ module.exports = {
                           .fillOpacity(1000.1);
                       doc.fillAndStroke("#FFA500", "#FFA500");
 
-                      doc.font('Times_New_Roman_Normal.ttf')
+                      doc.font('./assets/fonts/Times_New_Roman_Normal.ttf')
                           .fontSize(10)
                           .fillColor('black')
                           .fill('black')

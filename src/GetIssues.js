@@ -4,7 +4,6 @@ var csvWriter = require('csv-write-stream');
 var conf = require('./config.js');
 fs = require('fs');
 
-
 ticketsArr = [];
 
 exports.getIssues = function getIssues(cb) {
@@ -21,56 +20,43 @@ exports.getIssues = function getIssues(cb) {
             var project = request.get(options, function(e, r, Issues) {
                 var parseString = require('xml2js').parseString;
 
+
                 parseString(Issues, function(err, result) {
                     var writer = csvWriter({
                         headers: conf.CSV_Headers
                     });
-                    writer.pipe(fs.createWriteStream(conf.CSV_File_Name));
+
+                    writer.pipe(fs.createWriteStream(conf.CSV_FileName));
 
                     var SumStoryPoints = 0;
                     var NoOfStories = 0;
 
                     result.issueCompacts.issue.forEach(function(item) {
                         var ticket = [];
-                        ticket[0] = item.$.id;
-                        ticket[2] = 'Unassigned';
-                        item.field.forEach(function(field) {
-                            if (field.$.name == 'Story Points') {
-                                 ticket[1] = field.value[0];
-                                SumStoryPoints = SumStoryPoints + parseInt(field.value[0]);
-                                NoOfStories++;
-                            }
-                        });
-                        item.field.forEach(function(field) {
-                            if (field.$.name == 'State') {
-                                ticket[3] = field.value[0];
-                                //console.log('\t', field.value[0]);
-                            }
-                            if (field.$.name == 'Type') {
-                                ticket[4] = field.value[0];
-                                //console.log('\t', field.value[0]);
-                            }
-                        });
-                        item.field.forEach(function(field) {
-                          if (field.$.name == 'Team') {
-                              ticket[5] = field.value[0];
-                          }
-                        });
-                        item.field.forEach(function(field) {
-                          if (field.$.name == 'Assignee') {
-                              ticket[2] = field.value[0].$.fullName;
-                              //console.log('\t', field.value[0].$.fullName);
+
+                        for (var i = 0 ; i < conf.Youtrack_Fields.length ; i++)
+                        {
+                          ticket[i]= 'Unassigned';
+
+                          if (conf.Youtrack_Fields[i].toLowerCase() == "id") {
+                            ticket[i] = item.$.id;
                           }
 
-                        });
-                        item.field.forEach(function(field) {
-                            if (field.$.name == 'summary') {
-                                ticket[6] = field.value[0];
-                                //console.log('\t', field.value[0]);
+                          item.field.forEach(function(field) {
+                            if (field.$.name == "Assignee" && field.$.name == conf.Youtrack_Fields[i]) {
+                              ticket[i] = field.value[0].$.fullName
                             }
-                        });
+                            else if (field.$.name == conf.Youtrack_Fields[i]) {
+                                   ticket[i] = field.value[0];
+                              }
+                          });
+                        }
                         writer.write(ticket);
+                        //to paramaterize
+                        SumStoryPoints = SumStoryPoints + parseInt(ticket[1]);
                         ticketsArr.push(ticket);
+                        NoOfStories++;
+
                     });
                     console.log("Story Points SUM: " ,SumStoryPoints);
                     console.log("Number of Stories: " ,NoOfStories);

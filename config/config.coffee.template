@@ -36,6 +36,12 @@ CSV_FileName = -> "tickets.csv";
 CSV_Headers = -> ["Name", "Story_Points" ,"Assignee","State","Type","Team","Description"]
 Youtrack_Fields = -> [ID, "Story Points", "Assignee","State", "Type", "Team", "summary"]
 
+printed_tickets_topRight = -> 1
+printed_tickets_topLeft = ->  2
+printed_tickets_center_bold = ->  0
+printed_tickets_small_text = -> 6
+printed_tickets_type = -> 3    #defines type
+ticketID =-> 6    #Used for appending URL
 
 exports.sprint_number = SprintNumber()
 exports.YouTrack_URL = YouTrackURL()
@@ -47,3 +53,9 @@ exports.PDF_Name = PDF_FileName();
 exports.CSV_FileName = CSV_FileName();
 exports.CSV_Headers = CSV_Headers();
 exports.Youtrack_Fields = Youtrack_Fields();
+exports.printed_tickets_topRight = printed_tickets_topRight()
+exports.printed_tickets_topLeft = printed_tickets_topLeft()
+exports.printed_tickets_center_bold = printed_tickets_center_bold()
+exports.printed_tickets_small_text = printed_tickets_small_text()
+exports.printed_tickets_type = printed_tickets_type()
+exports.ticketID = ticketID()
