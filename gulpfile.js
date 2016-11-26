@@ -6,7 +6,7 @@ var
     sourcemaps = require('gulp-sourcemaps');
 
 var paths = {
-    coffee: ["src/**/*.coffee"],
+    coffee: ["config/**/*.coffee"],
     other: ["!src/**/*.coffee", "src/**/*"],
     dest: "dist"
 };

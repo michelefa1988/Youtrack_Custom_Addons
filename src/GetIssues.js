@@ -23,22 +23,20 @@ exports.getIssues = function getIssues(cb) {
 
                 parseString(Issues, function(err, result) {
                     var writer = csvWriter({
-                        headers: ["Name", "Story points", "Assignee", "State", "Type",  "Team","Description"]
+                        headers: conf.CSV_Headers
                     });
-                    writer.pipe(fs.createWriteStream('out.csv'));
+                    writer.pipe(fs.createWriteStream(conf.CSV_File_Name));
 
                     var SumStoryPoints = 0;
                     var NoOfStories = 0;
 
                     result.issueCompacts.issue.forEach(function(item) {
                         var ticket = [];
+                        ticket[0] = item.$.id;
                         ticket[2] = 'Unassigned';
                         item.field.forEach(function(field) {
                             if (field.$.name == 'Story Points') {
-                                //console.log(item.$.id);
-                                ticket[0] = item.$.id;
-                                ticket[1] = field.value[0];
-                                //console.log('\t', field.value[0]);
+                                 ticket[1] = field.value[0];
                                 SumStoryPoints = SumStoryPoints + parseInt(field.value[0]);
                                 NoOfStories++;
                             }
