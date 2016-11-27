@@ -20,7 +20,6 @@ exports.getIssues = function getIssues(cb) {
             var project = request.get(options, function(e, r, Issues) {
                 var parseString = require('xml2js').parseString;
 
-
                 parseString(Issues, function(err, result) {
                     var writer = csvWriter({
                         headers: conf.CSV_Headers

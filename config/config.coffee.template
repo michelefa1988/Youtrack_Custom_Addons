@@ -36,12 +36,14 @@ CSV_FileName = -> "tickets.csv";
 CSV_Headers = -> ["Name", "Story_Points" ,"Assignee","State","Type","Team","Description"]
 Youtrack_Fields = -> [ID, "Story Points", "Assignee","State", "Type", "Team", "summary"]
 
+#What to print in each corner of ticket
+#Each number represents an array value which can be found in youtrack_fields
 printed_tickets_topRight = -> 1
 printed_tickets_topLeft = ->  2
 printed_tickets_center_bold = ->  0
 printed_tickets_small_text = -> 6
-printed_tickets_type = -> 3    #defines type
-ticketID =-> 6    #Used for appending URL
+printed_tickets_type = -> 3    #defines type which is used for ticket colours
+ticketID =-> 6    #Used for appending URL to QR code
 
 exports.sprint_number = SprintNumber()
 exports.YouTrack_URL = YouTrackURL()
