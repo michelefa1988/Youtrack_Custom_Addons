@@ -1,8 +1,8 @@
 # Youtrack_EssentialAddons
 
 Youtrack_EssentialAddons is a Node.js application which contains a number of essential addons to the youtrack application. Two essential features which this application provides include
-* Printing of Agile cards to place on the physical board (each card contains ticket number, story points, description & Assignee). Each card is the size of a regular sticky note
-* Exports queries to CSV so be able to easily filter / backup/ take snapshots. Useful for scrum masters to keep track of progress
+* Printing of issue cards to place on the physical board (eg each card could contain ticket number, story points, description & Assignee). Each card is the size of a regular sticky note. Great tool for scrum masters!!
+* Exports queries to CSV so be able to easily filter / backup/ take snapshots. Useful for keeping track of progress
 
 
 
