@@ -15,20 +15,20 @@ Youtrack_EssentialAddons is a Node.js application which contains a number of ess
 
 **configuration file**
 * config/config.coffee.template must be renamed to config.coffee
-* Relative sections in config.coffee must be renamed to reflect the changes of your youtrack instance
+* Relative sections in config.coffee must be updated to reflect the changes of your youtrack instance
 
-### parameters
-For convience, some of the parameters could be entered as environment variables, inside the configuration file or overridden in parameters
+### Parameters
+For convenience, some of the parameters could be entered as environment variables, inside the configuration file or overridden in parameters
 **Youtrack email address**
-    * -email parameter OR
-    * youtrack_email environment variable OR
-    * place email address inside config.coffee
+  * -email parameter OR
+  * youtrack_email environment variable OR
+  * Email address can be placed inside config.coffee
 
 
 **Youtrack Password**
   * -pass parameter OR
   * youtrack_password environment variable OR
-  * place email address inside config.coffee
+  * Password can be placed inside config.coffee
 
 
 **Sprint Number**
