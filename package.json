@@ -1,5 +1,5 @@
 {
-  "name": "youtrack_test",
+  "name": "youtrack_essentialaddons",
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
@@ -17,7 +17,8 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-coffee": "^2.3.2",
-    "gulp-sourcemaps": "^2.2.0"
+    "gulp-sourcemaps": "^2.2.0",
+    "gulp-cli": "^1.2.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -27,11 +28,11 @@
     "url": "git+https://github.com/zetta-michele/youtrack_test.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Michele Fenech Adami",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/zetta-michele/youtrack_test/issues"
   },
   "homepage": "https://github.com/zetta-michele/youtrack_test#readme",
-  "description": ""
+  "description": "Youtrack_EssentialAddons is a Node.js application which contains a number of essential addons to the youtrack application. Two essential features which this application provides include\r * Printing of issue cards to place on the physical board (eg each card could contain ticket number, story points, description & Assignee). Each card is the size of a regular sticky note. Great tool for scrum masters!!\r * Exports queries to CSV so be able to easily filter / backup/ take snapshots. Useful for keeping track of progress"
 }
