@@ -27,7 +27,7 @@ YouTrack_BaseURL =  "https://COMPANY.myjetbrains.com/youtrack/rest/issue?filter=
 PDF_FileName =-> "tickets.pdf"   #FileName of PDF
 
 #QR code
-YouTrack_SearchURL =-> "https://zettabox.myjetbrains.com/youtrack/issue/"; #Prefix or URL which is used to append to QR code
+YouTrack_SearchURL =-> "https://company.myjetbrains.com/youtrack/issue/"; #Prefix or URL which is used to append to QR code
 
 
 #Youtrack Query
@@ -38,7 +38,7 @@ YouTrackURL = -> YouTrack_BaseURL + encodeURIComponent(youtrack_query) + '&max=3
 #CSV related configurations
 CSV_FileName = -> "tickets.csv";
 CSV_Headers = -> ["Ticket ID", "Story_Points" ,"Assignee","State","Type","Team","Description"]
-Youtrack_Fields = -> [ID, "Story Points", "Assignee","State", "Type", "Team", "summary"]
+Youtrack_Fields = -> ["ID", "Story Points", "Assignee","State", "Type", "Team", "summary"]
 
 #What to print in each corner of Issue Tickets
 #Each number represents an array value which can be found in youtrack_fields
