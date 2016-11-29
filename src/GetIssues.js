@@ -30,6 +30,7 @@ exports.getIssues = function getIssues(cb) {
                     var SumStoryPoints = 0;
                     var NoOfStories = 0;
 
+
                     result.issueCompacts.issue.forEach(function(item) {
                         var ticket = [];
 
@@ -40,8 +41,12 @@ exports.getIssues = function getIssues(cb) {
                           if (conf.Youtrack_Fields[i].toLowerCase() == "id") {
                             ticket[i] = item.$.id;
                           }
-
+                          else if (conf.Youtrack_Fields[i] == "URL") {
+                            ticket[i] = conf.YouTrack_Search_URL + item.$.id
+                            console.log(ticket[i]);
+                          }
                           item.field.forEach(function(field) {
+                            //console.log(field)
                             if (field.$.name == "Assignee" && field.$.name == conf.Youtrack_Fields[i]) {
                               ticket[i] = field.value[0].$.fullName
                             }
