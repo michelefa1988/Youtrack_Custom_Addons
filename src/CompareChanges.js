@@ -6,8 +6,7 @@ changesArr = [];
 
 module.exports = {
     processChanges: function(cb) {
-        var FileName = 'sprints';
-        var db = new loki(FileName)
+        var db = new loki(config.DB_path)
         db.loadDatabase({}, function() {
             var ticketsCollection = db.getCollection()
 

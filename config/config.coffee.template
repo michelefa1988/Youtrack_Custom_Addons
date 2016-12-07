@@ -40,6 +40,9 @@ CSV_FileName = -> "tickets.csv";
 CSV_Headers = -> ["Ticket ID", "Story_Points" ,"Assignee","State","Type","Team","Description"]
 Youtrack_Fields = -> ["ID", "Story Points", "Assignee","State", "Type", "Team", "summary"]
 
+#DB
+DB_path = -> "C:\\temp\\sprints";
+
 #What to print in each corner of Issue Tickets
 #Each number represents an array value which can be found in youtrack_fields
 printed_tickets_topRight = -> 2
@@ -67,3 +70,4 @@ exports.printed_tickets_center_bold = printed_tickets_center_bold()
 exports.printed_tickets_small_text = printed_tickets_small_text()
 exports.printed_tickets_type = printed_tickets_type()
 exports.ticketID = ticketID()
+exports.DB_path = DB_path()
