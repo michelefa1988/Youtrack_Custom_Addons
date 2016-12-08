@@ -43,7 +43,6 @@ exports.getIssues = function getIssues(cb) {
                           }
                           else if (conf.Youtrack_Fields[i] == "URL") {
                             ticket[i] = conf.YouTrack_Search_URL + item.$.id
-                            console.log(ticket[i]);
                           }
                           item.field.forEach(function(field) {
                             //console.log(field)

@@ -145,20 +145,7 @@ module.exports = {
                     createQR(conf.YouTrack_Search_URL + page[ticketNo][conf.ticketID], page[ticketNo][conf.ticketID]);
                     doc.image('temp/' + page[ticketNo][conf.ticketID] + '.PNG', x + 100, (y * 260) + 198 , {width:50});
 
-                    if (AddedToSprint) {
-                      //item has been added to sprint
-                      doc.rect(x + 5, (y * 260) + 210 , 90, 20)
-                          .lineWidth(1)
-                          .fillOpacity(1000.1);
-                      doc.fillAndStroke("#FFA500", "#FFA500");
-
-                      doc.font('./assets/fonts/Times_New_Roman_Normal.ttf')
-                          .fontSize(10)
-                          .fillColor('black')
-                          .fill('black')
-                          .text("Not in Intial Scope", x + 5, (y * 260)+ 215);
-                    }
-
+                    
                     ticketNo++;
                     if (isLeft !== 0) {
                         y++;
