@@ -1,2 +1,6 @@
-$FileName = 'out-pdf.pdf'
-Start-Process –FilePath $FileName –Verb Print
+Param(
+    [string] $path
+ )
+
+$FileName = $path
+Start-Process -FilePath $FileName -Verb Print

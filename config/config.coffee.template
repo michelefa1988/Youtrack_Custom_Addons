@@ -40,7 +40,7 @@ CSV_FileName = -> "tickets.csv";
 CSV_Headers = -> ["Ticket ID", "Story_Points" ,"Assignee","State","Type","Team","Description"]
 Youtrack_Fields = -> ["ID", "Story Points", "Assignee","State", "Type", "Team", "summary"]
 
-#DB
+#DB path inclding filename eg c:\temp\db.txt
 DB_path = -> "C:\\temp\\sprints";
 
 #What to print in each corner of Issue Tickets
