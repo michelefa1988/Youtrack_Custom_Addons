@@ -11,7 +11,6 @@ ArrayToExport = [];
 function LaunchPrintScript(){
   var spawn = require("child_process").spawn,child;
   var arg = "./print.ps1 -path " + __dirname + "\\" + conf.PDF_Name
-  console.log(arg);
   child = spawn("powershell.exe", [arg]);
   child.stdout.on("data",function(data){
       console.log("Powershell Data: " + data);
